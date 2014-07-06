@@ -27,3 +27,18 @@ kinect-shenanigans
 -semaphore - will the kinect handle this well if it's flags when it's usually used for people?
 -some photography things, not necessarily ML related: -add depth of field (photo effects) - not the most ML-y but it's good for getting familiar with the included sensor data
 -replicating just dance - choreograph, tell program to give directions on how to dance, then see if the person did it correctly/had good timing
+
+
+####Setup
+Follow guidelines on http://www.20papercups.net/programming/kinect-on-ubuntu-with-openni/ to the letter, up until the NITE installation guide.
+
+NITE binaries aren't 100% necessary, but may come in useful later.
+Download SimpleOpenNI NITE binaries (where NITE is packaged): 
+```bash
+wget https://simple-openni.googlecode.com/files/OpenNI_NITE_Installer-Linux64-0.27.zip
+unzip OpenNI_NITE_Installer-Linux64-0.27.zip
+cd OpenNI_NITE_Installer-Linux64-0.27/NITE-Bin-Dev-Linux-x64-v1.5.2.21
+sudo ./install.sh
+```
+
+
