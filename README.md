@@ -20,6 +20,10 @@ some comments from friends:
 
 Follow guidelines on http://www.20papercups.net/programming/kinect-on-ubuntu-with-openni/ to the letter, up until the NITE installation guide.
 
+At this point, you should be able to cd into OpenNI/Platform/Linux/Bin/x64-Release and execute `Sample-NiSimpleViewer` to ensure things are working.
+
+![Success!](http://i.imgur.com/200aYCD.png "Kinect Depth Mapping")
+
 NITE binaries aren't 100% necessary, but may come in useful later.
 Download SimpleOpenNI NITE binaries (where NITE is packaged): 
 ```bash
