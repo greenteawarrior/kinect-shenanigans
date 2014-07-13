@@ -107,27 +107,27 @@ class Kinect:
         print "--- User {} lost." .format(id)
         del self.people[id]
 
-    def refresh(self):
-        # Update to next frame
-        self.ctx.wait_and_update_all()
+    # def refresh(self):
+    #     # Update to next frame
+    #     self.ctx.wait_and_update_all()
 
-        # Extract head position of each tracked user
-        for id in self.user.users:
-            if self.skel_cap.is_tracking(id):
+    #     # Extract head position of each tracked user
+    #     for id in self.user.users:
+    #         if self.skel_cap.is_tracking(id):
 
-                # Point , Confidence
-                joint = self.skel_cap.get_joint_position(id, SKEL_HEAD)
-                self.people[id].head = joint
+    #             # Point , Confidence
+    #             joint = self.skel_cap.get_joint_position(id, SKEL_HEAD)
+    #             self.people[id].head = joint
 
-                joint = self.skel_cap.get_joint_position(id, SKEL_LEFT_HAND)
-                self.people[id].right_hand = joint
+    #             joint = self.skel_cap.get_joint_position(id, SKEL_LEFT_HAND)
+    #             self.people[id].right_hand = joint
 
-                joint = self.skel_cap.get_joint_position(id, SKEL_RIGHT_HAND)
-                self.people[id].left_hand = joint
+    #             joint = self.skel_cap.get_joint_position(id, SKEL_RIGHT_HAND)
+    #             self.people[id].left_hand = joint
 
-                # adding torso for the sake of semaphore
-                joint = self.skel_cap.get_joint_position(id, SKEL_TORSO)
-                self.people[id].torso = joint
+    #             # adding torso for the sake of semaphore
+    #             joint = self.skel_cap.get_joint_position(id, SKEL_TORSO)
+    #             self.people[id].torso = joint
 
     def get_people(self):
         return self.people
