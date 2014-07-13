@@ -113,6 +113,7 @@ class Kinect:
         # Extract head position of each tracked user
         for id in self.user.users:
             if self.skel_cap.is_tracking(id):
+
                 # Point , Confidence
                 joint = self.skel_cap.get_joint_position(id, SKEL_HEAD)
                 self.people[id].head = joint
@@ -126,6 +127,22 @@ class Kinect:
                 # adding torso for the sake of semaphore
                 joint = self.skel_cap.get_joint_position(id, SKEL_TORSO)
                 self.people[id].torso = joint
+
+                if self.collectData:
+                    print self.people[id].head.point
+                    print 'Capture complete'
+
+
+        # data = {'torso': None, 'right_hand': None, 'left_hand': None}
+        # while True:
+        #     for id, person in self.people.items():
+        #         for k in data:
+        #             node = getattr(person, k)
+        #             print id, k, node.point, node.confidence
+        #             data[k] = (node.point, node.confidence)
+        # pprint(data)
+        # print "Capture complete"
+
 
     def get_people(self):
         return self.people
