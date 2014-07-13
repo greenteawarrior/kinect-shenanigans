@@ -1,3 +1,6 @@
+# slightly modified code from the PyOpenNi github repository
+# original at https://github.com/jmendeth/PyOpenNI/blob/master/examples/skeleton.py
+
 #!/usr/bin/python
 ## The equivalent of:
 ##  "Working with the Skeleton"
@@ -65,7 +68,7 @@ skel_cap.set_profile(SKEL_PROFILE_ALL)
 ctx.start_generating_all()
 print "0/4 Starting to detect users. Press Ctrl-C to exit."
 
-joints =  {'SKEL_HEAD': 0
+joints =  {'SKEL_HEAD': 0,
            'SKEL_LEFT_ANKLE': 0,
            'SKEL_LEFT_COLLAR': 0,
            'SKEL_LEFT_ELBOW': 0,
@@ -96,6 +99,8 @@ joints =  {'SKEL_HEAD': 0
            'SKEL_WAIST': 0}
 
 while True:
+    import openni
+
     # Update to next frame
     ctx.wait_and_update_all()
 
@@ -103,5 +108,8 @@ while True:
     for id in user.users:
         if skel_cap.is_tracking(id):
             for joint in joints:
-                joints[joint] = skel_cap.get_joint_position(id, joint).point
-            print joints
+                try:
+                    joints[joint] = skel_cap.get_joint_position(id, getattr(openni, joint))
+                    print joint, joints[joint]
+                except: # because not all joints are always used, and will throw an error if it "doesn't exist" at the current moment
+                    pass
