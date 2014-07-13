@@ -47,6 +47,7 @@ class Person:
         self.left_hand = PosConfNode((0,0,0),0)
         self.right_hand = PosConfNode((0,0,0),0)
         self.head = PosConfNode((0,0,0),0)
+        self.torso = PosConfNode((0,0,0),0)
 
 class Kinect:
     def __init__(self):
@@ -121,6 +122,10 @@ class Kinect:
 
                 joint = self.skel_cap.get_joint_position(id, SKEL_RIGHT_HAND)
                 self.people[id].left_hand = joint
+
+                # adding torso for the sake of semaphore
+                joint = self.skel_cap.get_joint_position(id, SKEL_TORSO)
+                self.people[id].torso = joint
 
     def get_people(self):
         return self.people
