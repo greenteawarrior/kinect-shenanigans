@@ -14,13 +14,24 @@ class KinectCLI(Kinect):
             print "4/4 User {} calibrated successfully! Starting to track." .format(id)
             self.skel_cap.start_tracking(id)
             self.current_person = self.people[id]
+            self.refresh()
             self.prompt_user()
         else:
             print "ERR User {} failed to calibrate. Restarting process." .format(id)
             self.new_user(self.user, id)
 
     def capture_data(self, pose):
-        self.collectData = True
+
+        data = {'torso': None, 'right_hand': None, 'left_hand': None}
+
+        for id, person in self.people.items():
+            for k in data:
+                node = getattr(person, k)
+                print id, k, node.point, node.confidence
+                data[k] = (node.point, node.confidence)
+
+        pprint(data)
+        print "Capture complete"
 
     def prompt_user(self):
         pose = raw_input("Enter the current pose: ").strip()

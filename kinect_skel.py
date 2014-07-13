@@ -49,6 +49,7 @@ class Person:
         self.head = PosConfNode((0,0,0),0)
         self.torso = PosConfNode((0,0,0),0)
 
+
 class Kinect:
     def __init__(self):
         self.people = dict()
@@ -127,22 +128,6 @@ class Kinect:
                 # adding torso for the sake of semaphore
                 joint = self.skel_cap.get_joint_position(id, SKEL_TORSO)
                 self.people[id].torso = joint
-
-                if self.collectData:
-                    print self.people[id].head.point
-                    print 'Capture complete'
-
-
-        # data = {'torso': None, 'right_hand': None, 'left_hand': None}
-        # while True:
-        #     for id, person in self.people.items():
-        #         for k in data:
-        #             node = getattr(person, k)
-        #             print id, k, node.point, node.confidence
-        #             data[k] = (node.point, node.confidence)
-        # pprint(data)
-        # print "Capture complete"
-
 
     def get_people(self):
         return self.people
