@@ -39,6 +39,9 @@ class KinectCLI(Kinect):
                 self.people[id].torso = joint
 
                 if self.collect_data:
+                    # For semaphore data collection
+                    # self.collect_data is set by the prompt_user method
+
                     data = {'torso': None, 'right_hand': None, 'left_hand': None}
 
                     for k in data:
@@ -46,30 +49,28 @@ class KinectCLI(Kinect):
                         data[k] = (node.point, node.confidence)
                     data['pose'] = self.pose
 
+                    # for data logging
                     append_to_csv(self.filename, json.dumps(data))
                     self.collect_data = False
-
-    def new_user(self, src, id):
-        print "1/4 User {} detected.".format(id)
-        self.pose_cap.start_detection(self.pose_to_use, id)
-        self.people[id] = Person(id)
 
     def calibration_complete(self, src, id, status):
         if status == CALIBRATION_STATUS_OK:
             print "4/4 User {} calibrated successfully! Starting to track." .format(id)
             self.skel_cap.start_tracking(id)
-            self.current_person = self.people[id]
+            # prompt user to collect data
             self.prompt_user()
         else:
             print "ERR User {} failed to calibrate. Restarting process." .format(id)
             self.new_user(self.user, id)
 
     def prompt_user(self):
+        # pause data collection until test subject is ready
         pose = raw_input("Enter the current pose: ").strip()
         if len(pose) != 1:
             print "\nPlease enter a single character."
             self.prompt_user()
         else:
+            # set flags to be read by self.refresh, called in the main program loop
             self.collect_data = True
             self.pose = pose
 
